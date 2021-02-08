@@ -18,7 +18,7 @@ const UserInfo = (props) => {
         <Avatar />
         <UserData>
           <strong>{user.userName}</strong>
-          <span>#{user.UserID.slice(0, 4)}</span>
+          <span>#{user.userID.slice(0, 4)}</span>
         </UserData>
       </Profile>
       <Icons>

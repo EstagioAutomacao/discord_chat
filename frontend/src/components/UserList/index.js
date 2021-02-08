@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { UsersContext } from "../../UsersContext";
 
 import { Container, Role, User, Avatar } from "./styles";
 const UserRow = (props) => {
@@ -12,30 +14,17 @@ const UserRow = (props) => {
   );
 };
 const UserList = () => {
+  const { users2 } = useContext(UsersContext);
   return (
     <Container>
-      <Role>Disponível - 1 </Role>
-      <UserRow nickname="Guilherme Rodz" />
-
-      <Role>Offline - 18</Role>
+      <Role>Disponível - {users2.length + 1} </Role>
       <UserRow nickname="Equipe Fake" isBot />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
-      <UserRow nickname="Fulano" />
+      {users2.map((user) => (
+        <UserRow key={user.id} nickname={user.username} />
+      ))}
+
+      <Role>Offline - 1</Role>
+      <UserRow nickname="Bot-Audio" isBot />
     </Container>
   );
 };

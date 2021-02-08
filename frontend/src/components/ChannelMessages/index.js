@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 import { Container, Avatar, Message, Header, Content } from "./styles";
 export { Mention } from "./styles";
@@ -20,4 +20,8 @@ const ChannelMessages = (props) => {
   );
 };
 
-export default ChannelMessages;
+function areEqual(prevProps, nextProps) {
+  return prevProps.author === nextProps.author;
+}
+
+export default memo(ChannelMessages, areEqual);
