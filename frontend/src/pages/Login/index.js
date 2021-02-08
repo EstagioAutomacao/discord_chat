@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import QRCode from "qrcode.react";
 
 import logo1 from "../../assets/discord-logo-1.png";
@@ -25,7 +25,6 @@ import {
   VerticalSeparator,
 } from "./styles";
 
-import { useHistory } from "react-router-dom";
 function Login(props) {
   const history = useHistory();
   const { user, setUser } = props;
@@ -37,7 +36,11 @@ function Login(props) {
     // console.log("anima");
     history.push("/home");
   }
-
+  useEffect(() => {
+    if (user.userName) {
+      history.push("/home");
+    }
+  }, []);
   return (
     <Container>
       <StyledAnimation />

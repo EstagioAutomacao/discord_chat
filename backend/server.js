@@ -20,12 +20,18 @@ io.on("connection", (socket) => {
   // console.log(io.clients);
   socket.on("joinRoom", (user) => {
     console.log(user.userName, " name");
-    const user2 = userJoin(user.userID, user.userName, "roomTeste");
+    const user2 = userJoin(
+      user.userID,
+      socket.id,
+      user.userName,
+      "roomTeste",
+      user.color
+    );
     socket.join(user2.room);
     console.log("[SOCKET] connect");
     socket.on("chat.message", (data) => {
       const user3 = getCurrentUser(user.userID);
-      console.log("[CHAT_MESSAGE] =>", data);
+      // console.log("[CHAT_MESSAGE] =>", data);
       io.to(user3.room).emit("chat.message", data);
     });
     // socket.broadcast.to(user.room).emit("chat.message", {
@@ -42,6 +48,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     const user_logout = userLeave(socket.id);
     console.log("[SOCKET] has disconnect");
+    console.log(user_logout);
   });
 });
 

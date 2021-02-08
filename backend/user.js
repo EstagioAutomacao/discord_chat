@@ -5,11 +5,11 @@ function verifyExists(id) {
   return users.find((user) => user.id === id);
 }
 
-function userJoin(id, username, room) {
-  const user = { id, username, room };
-  // if (verifyExists(id)) {
-  //   return user;
-  // }
+function userJoin(id, socketId, username, room, color) {
+  const user = { id, socketId, username, room, color };
+  if (verifyExists(id)) {
+    return user;
+  }
   users.push(user);
   return user;
 }
@@ -19,7 +19,7 @@ function getCurrentUser(id) {
 }
 
 function userLeave(id) {
-  const index = users.findIndex((user) => user.id === id);
+  const index = users.findIndex((user) => user.socketId === id);
   if (index !== -1) {
     return users.splice(index, 1)[0];
   }

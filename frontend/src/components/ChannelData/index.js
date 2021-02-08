@@ -5,12 +5,14 @@ import io from "socket.io-client";
 import { v4 as uuid } from "uuid";
 import { UsersContext } from "../../UsersContext";
 import Moment from "moment";
+import { useHistory } from "react-router-dom";
 
 const socket = io("http://localhost:3001");
 socket.on("connect", () => console.log("connect socket"));
 const myId = uuid();
 
 const ChannelData = (props) => {
+  const history = useHistory();
   const containerRef = useRef(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -38,10 +40,19 @@ const ChannelData = (props) => {
         messageID: messageID,
         id: myId,
         message,
+        color: user.color,
       });
       setMessage("");
     }
     // console.log(messages);
+  }
+  function handleDisconnect() {
+    // socket.disconnect(true);
+    socket.on("disconnect", () => {
+      console.log("Saiu misera");
+      socket.connect();
+      history.push("/");
+    });
   }
 
   const messageRef = useRef(null);
@@ -63,6 +74,9 @@ const ChannelData = (props) => {
   return (
     <React.Fragment>
       <Container ref={containerRef}>
+        {/* <button type="button" onClick={handleDisconnect}>
+          Sair
+        </button> */}
         <Messages ref={messageRef}>
           <ChannelMessages
             author="Equipe Fake"
@@ -81,6 +95,7 @@ const ChannelData = (props) => {
               author={m.userName}
               date={data}
               content={m.message}
+              color={m.color}
             />
           ))}
         </Messages>

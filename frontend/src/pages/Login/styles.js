@@ -163,6 +163,10 @@ export const Button = styled.button`
   min-width: 130px;
   padding: 2px 16px;
   border-radius: 3px;
+  cursor: pointer;
+  :hover {
+    opacity: 0.9;
+  }
 `;
 
 export const DivCreateAccount = styled.span`
