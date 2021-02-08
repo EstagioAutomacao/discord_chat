@@ -34,8 +34,8 @@ function Login(props) {
   }
   function handleLogin(e) {
     e.preventDefault();
-    console.log("anima");
-    // history.push("/home");
+    // console.log("anima");
+    history.push("/home");
   }
 
   return (

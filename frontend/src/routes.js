@@ -6,8 +6,8 @@ function Routes(props) {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/home" render={() => <Home {...props} />} />
         <Route path="/" exact render={() => <Login {...props} />} />
+        <Route path="/home" render={() => <Home {...props} />} />
       </Switch>
     </BrowserRouter>
   );

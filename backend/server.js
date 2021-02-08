@@ -15,6 +15,8 @@ const SERVER_HOST = "localhost";
 const SERVER_PORT = 3001;
 
 io.on("connection", (socket) => {
+  // console.log(io.sockets.server.eio.clientsCount);
+  // console.log(io.clients);
   console.log("[SOCKET] connect");
   socket.on("chat.message", (data) => {
     console.log("[CHAT_MESSAGE] =>", data);
