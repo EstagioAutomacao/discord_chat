@@ -4,8 +4,8 @@ import { Container, Messages, InputWrapper, Input, InputIcon } from "./styles";
 import io from "socket.io-client";
 import { v4 as uuid } from "uuid";
 
-const socket = io("http://localhost:3001");
-socket.on("connect", () => console.log("connect socket"));
+// const socket = io("http://localhost:3001");
+// socket.on("connect", () => console.log("connect socket"));
 const myId = uuid();
 
 const ChannelData = (props) => {
@@ -31,12 +31,12 @@ const ChannelData = (props) => {
     e.preventDefault();
     if (message.trim()) {
       const messageID = uuid();
-      socket.emit("chat.message", {
-        userName: user.userName,
-        messageID: messageID,
-        id: myId,
-        message,
-      });
+      // socket.emit("chat.message", {
+      //   userName: user.userName,
+      //   messageID: messageID,
+      //   id: myId,
+      //   message,
+      // });
       setMessage("");
     }
     // console.log(messages);
@@ -51,10 +51,10 @@ const ChannelData = (props) => {
   }, [messageRef]);
 
   useEffect(() => {
-    const handleNewMessage = (newMessage) =>
-      setMessages([...messages, newMessage]);
-    socket.on("chat.message", handleNewMessage);
-    return () => socket.off("chat.message", handleNewMessage);
+    // const handleNewMessage = (newMessage) =>
+    //   setMessages([...messages, newMessage]);
+    // socket.on("chat.message", handleNewMessage);
+    // return () => socket.off("chat.message", handleNewMessage);
   }, [messages]);
   return (
     <Container>

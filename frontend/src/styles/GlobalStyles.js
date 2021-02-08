@@ -33,6 +33,10 @@ export default createGlobalStyle`
     --mention-message: #413f3f;
  
     --link: #5d80d6;
+
+    --text-normal: #dcddde;
+    --header-secondary: #b9bbbe;
+    --channels-default: #8e9297;
  
     --rocketseat: #6633cc;
   }
