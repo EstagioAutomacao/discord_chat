@@ -1,6 +1,12 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import background from "../../assets/background-login.jpeg";
+
+export const DivLoading = styled.div`
+  position: absolute;
+  transition-delay: 1.5s;
+  z-index: ${({ animation }) => (animation ? 100 : -1)};
+`;
 
 export const Container = styled.div`
   width: 100%;
@@ -27,17 +33,44 @@ export const StyledImg = styled.img`
   position: absolute;
   top: 24px;
   left: 24px;
+  @media (max-width: 715px) {
+    top: 24px;
+    left: calc(50% - 65px);
+  }
+  /* z-index: 100; */
+  display: ${({ animation }) => (animation ? "none" : "block")};
+`;
+
+const animationDivForm = keyframes`
+  0% {margin-top: 10px;}
+  20% {margin-top: 50px;}
+  40% {margin-top: 80px;}
+  60% {margin-top: 100px;}
+  70% {margin-top: 130px;}
+  80% {margin-top: 80px;}
+  90% {margin-top: 40px;}
+  95% {margin-top: 0px;}
+  100% {margin-top: -15px;}
 `;
 
 export const FormContainer = styled.div`
   /* display: none; */
   position: absolute;
+  z-index: 10;
   width: 100%;
   height: auto;
   max-width: 784px;
   background-color: var(--primary);
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
+  @media (max-width: 715px) {
+    max-width: 480px;
+  }
+  margin-top: ${({ animation }) => (animation ? "-50px" : 0)};
+  visibility: ${({ animation }) => (animation ? "hidden" : "visible")};
+  transition: visibility 1.2s, margin-top 1s linear;
+  animation: ${({ animation }) => (animation ? animationDivForm : "")} 1.1s
+    linear 1;
 `;
 
 export const Form = styled.form`
@@ -82,10 +115,16 @@ export const DivQRCode = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   flex-grow: 1;
+  @media (max-width: 715px) {
+    display: none;
+  }
 `;
 
 export const VerticalSeparator = styled.div`
   margin: 0 32px;
+  @media (max-width: 715px) {
+    display: none;
+  }
 `;
 
 export const ImageCode = styled.div`

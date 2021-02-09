@@ -9,6 +9,9 @@ export const Container = styled.div`
   padding: 18px;
   background-color: var(--quaternary);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 9px 8px;
+  @media (max-width: 1050px) {
+    display: none;
+  }
 `;
 export const Profile = styled.div`
   display: flex;

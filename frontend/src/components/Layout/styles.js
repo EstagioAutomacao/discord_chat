@@ -9,4 +9,11 @@ export const Grid = styled.div`
     "SL CL CD UL"
     "SL UI CD UL";
   height: 100vh;
+  @media (max-width: 1050px) {
+    grid-template-columns: 71px auto 200px;
+    grid-template-areas:
+      "SL CI CI"
+      "SL CD UL"
+      "SL CD UL";
+  }
 `;

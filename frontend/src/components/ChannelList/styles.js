@@ -6,6 +6,9 @@ export const Container = styled.div`
   flex-direction: column;
   padding: 24px 9.5px 0 16px;
   background-color: var(--secondary);
+  @media (max-width: 1050px) {
+    display: none;
+  }
 `;
 export const Category = styled.div`
   display: flex;

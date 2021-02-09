@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import QRCode from "qrcode.react";
 
@@ -7,6 +7,7 @@ import logo2 from "../../assets/discord-logo-2.png";
 import StyledAnimation from "../../components/StyledAnimation";
 import {
   Container,
+  DivLoading,
   StyledImg,
   FormContainer,
   Form,
@@ -28,13 +29,17 @@ import {
 function Login(props) {
   const history = useHistory();
   const { user, setUser } = props;
+  const [animation, setAnimation] = useState(false);
+  const formContainerRef = useRef(null);
   function handleName(e) {
     setUser(e.target.value);
   }
   function handleLogin(e) {
     e.preventDefault();
-    // console.log("anima");
-    history.push("/home");
+    setAnimation(true);
+    setTimeout(() => {
+      history.push("/home");
+    }, 2000);
   }
   useEffect(() => {
     if (user.userName) {
@@ -43,9 +48,16 @@ function Login(props) {
   }, []);
   return (
     <Container>
-      <StyledAnimation />
-      <StyledImg src={logo2} alt="logo" />
-      <FormContainer>
+      <DivLoading animation={animation}>
+        <img
+          src={logo2}
+          alt="logo"
+          style={{ maxWidth: "270px", width: "100%", height: "auto" }}
+        />
+      </DivLoading>
+      <StyledAnimation animation={animation} />
+      <StyledImg src={logo2} alt="logo" animation={animation} />
+      <FormContainer animation={animation} ref={formContainerRef}>
         <Form onSubmit={handleLogin}>
           <DivInputs>
             <Title>Boas-vindas de volta!</Title>

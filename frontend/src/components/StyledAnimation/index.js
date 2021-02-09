@@ -2,11 +2,11 @@ import React, { useRef, useEffect } from "react";
 
 import { StyledDiv } from "./styles";
 
-const StyledAnimation = () => {
+const StyledAnimation = ({ animation }) => {
   const divRef = useRef(null);
   useEffect(() => {}, []);
-
-  return <StyledDiv ref={divRef} />;
+  console.log(animation);
+  return <StyledDiv ref={divRef} animation={animation} />;
 };
 
 export default StyledAnimation;
