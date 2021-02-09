@@ -21,7 +21,7 @@ io.on("connection", (socket) => {
   socket.on("joinRoom", (user) => {
     console.log(user.userName, " name");
     const user2 = userJoin(
-      user.userID,
+      user.userId,
       socket.id,
       user.userName,
       "roomTeste",
@@ -30,7 +30,7 @@ io.on("connection", (socket) => {
     socket.join(user2.room);
     console.log("[SOCKET] connect");
     socket.on("chat.message", (data) => {
-      const user3 = getCurrentUser(user.userID);
+      const user3 = getCurrentUser(user.userId);
       // console.log("[CHAT_MESSAGE] =>", data);
       io.to(user3.room).emit("chat.message", data);
     });
@@ -45,10 +45,19 @@ io.on("connection", (socket) => {
       users: getUsersRoom(user2.room),
     });
   });
+  socket.on("forceDisconnect", async () => {
+    console.log("Disconnected 1:", socket.disconnected);
+    await socket.disconnect();
+    return socket.disconnected;
+  });
   socket.on("disconnect", () => {
     const user_logout = userLeave(socket.id);
+    // console.log(socket.id);
     console.log("[SOCKET] has disconnect");
-    console.log(user_logout);
+    io.to("roomTeste").emit("roomUsers", {
+      room: "roomTeste",
+      users: getUsersRoom("roomTeste"),
+    });
   });
 });
 

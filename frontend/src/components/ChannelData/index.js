@@ -1,6 +1,14 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import ChannelMessages, { Mention } from "../ChannelMessages";
-import { Container, Messages, InputWrapper, Input, InputIcon } from "./styles";
+import {
+  Container,
+  Messages,
+  InputWrapper,
+  Input,
+  InputIcon,
+  LogoutButton,
+  CloseIcon,
+} from "./styles";
 import io from "socket.io-client";
 import { v4 as uuid } from "uuid";
 import { UsersContext } from "../../UsersContext";
@@ -19,7 +27,9 @@ const ChannelData = (props) => {
   const { user, setUser } = props;
 
   const { users2, handleUsers } = useContext(UsersContext);
-
+  // useEffect(() => {
+  //   socket.on("connect", () => console.log("connect socket"));
+  // }, [user]);
   socket.on("roomUsers", ({ room, users }) => {
     handleUsers(users);
   });
@@ -46,13 +56,10 @@ const ChannelData = (props) => {
     }
     // console.log(messages);
   }
-  function handleDisconnect() {
-    // socket.disconnect(true);
-    socket.on("disconnect", () => {
-      console.log("Saiu misera");
-      socket.connect();
-      history.push("/");
-    });
+  async function handleDisconnect() {
+    const logout = await socket.emit("forceDisconnect");
+    setUser("userName", "");
+    window.location.href = "http://localhost:3000";
   }
 
   const messageRef = useRef(null);
@@ -74,9 +81,9 @@ const ChannelData = (props) => {
   return (
     <React.Fragment>
       <Container ref={containerRef}>
-        {/* <button type="button" onClick={handleDisconnect}>
-          Sair
-        </button> */}
+        <LogoutButton type="button" onClick={handleDisconnect}>
+          <CloseIcon />
+        </LogoutButton>
         <Messages ref={messageRef}>
           <ChannelMessages
             author="Equipe Fake"
@@ -116,9 +123,6 @@ const ChannelData = (props) => {
   );
 };
 function areEqual(prevProps, nextProps) {
-  console.log("areEqual");
-  console.log(prevProps);
-  console.log(nextProps);
   return prevProps.user.userName === nextProps.user.userName;
 }
 

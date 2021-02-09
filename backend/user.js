@@ -1,7 +1,6 @@
 const users = [];
 
 function verifyExists(id) {
-  // console.log(users.find((user) => user.id === id));
   return users.find((user) => user.id === id);
 }
 
@@ -26,7 +25,6 @@ function userLeave(id) {
 }
 
 function getUsersRoom(room) {
-  console.log(users.filter((user) => user.room === room));
   return users.filter((user) => user.room === room);
 }
 module.exports = {

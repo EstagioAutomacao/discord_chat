@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import QRCode from "qrcode.react";
+import { v4 as uuid } from "uuid";
 
 import logo1 from "../../assets/discord-logo-1.png";
 import logo2 from "../../assets/discord-logo-2.png";
@@ -26,16 +27,26 @@ import {
   VerticalSeparator,
 } from "./styles";
 
+import colors from "../../colors";
+
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
 function Login(props) {
   const history = useHistory();
   const { user, setUser } = props;
   const [animation, setAnimation] = useState(false);
   const formContainerRef = useRef(null);
+  const userID = uuid();
+  const color = colors[getRandomNumber(0, 19)];
   function handleName(e) {
-    setUser(e.target.value);
+    setUser("userName", e.target.value);
   }
   function handleLogin(e) {
     e.preventDefault();
+    setUser("userId", userID);
+    setUser("color", color);
     setAnimation(true);
     setTimeout(() => {
       history.push("/home");
